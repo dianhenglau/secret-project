@@ -1,4 +1,5 @@
 from datetime import date
+from os.path import join
 import json
 
 #FSD Ass Print Main Menu
@@ -137,7 +138,7 @@ def print_seating_arrangement(ferryID_choice, time_choice, data):
 
 def read_from_file():
     try:
-        with open('data.json', 'r') as f:
+        with open(join('data', 'data.json'), 'r') as f:
             return json.load(f)
     except FileNotFoundError:
         return [[[
@@ -146,7 +147,7 @@ def read_from_file():
             for k in range(8)]
 
 def write_to_file(data):
-    with open('data.json', 'w') as f:
+    with open(join('data', 'data.json'), 'w') as f:
         json.dump(data, f)
 
 #FSD Check Empty Seat function
