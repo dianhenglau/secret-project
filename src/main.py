@@ -25,7 +25,7 @@ while True:
             continue
 
         data_update(date, seats)
-        print_tickets(seats)
+        print_tickets(date, seats)
 
     elif choice == 'V':
         view_seating()
