@@ -6,17 +6,16 @@ from helpers import \
     view_seating, \
     search_passenger_info
 
-print('''
-======================
-Ferry Ticketing System
-======================
+print('''\
+
+========================
+ Ferry Ticketing System
+========================
+
 ''')
 
 while True:
-    success, choice = main_menu()
-
-    if not success:
-        continue
+    choice = main_menu()
 
     if choice == 'P':
         back_to_main, date, seats = purchase_ticket()
