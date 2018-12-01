@@ -1,6 +1,7 @@
 from helpers import \
     main_menu, \
     purchase_ticket, \
+    data_update, \
     print_tickets, \
     view_seating, \
     search_passenger_info
