@@ -38,23 +38,25 @@ Build a ferry ticketing system. This system is used by ticket counter. The user 
 | 10am  | Penang   to Langkawi | Langkawi to Penang   |
 | 11am  | Langkawi to Penang   | Penang   to Langkawi |
 | 12pm  | Penang   to Langkawi | Langkawi to Penang   |
-| 1pm   | Langkawi to Penang   | Penang   to Langkawi |
-| 2pm   | Penang   to Langkawi | Langkawi to Penang   |
-| 3pm   | Langkawi to Penang   | Penang   to Langkawi |
-| 4pm   | Penang   to Langkawi | Langkawi to Penang   |
-| 5pm   | Langkawi to Penang   | Penang   to Langkawi |
+|  1pm  | Langkawi to Penang   | Penang   to Langkawi |
+|  2pm  | Penang   to Langkawi | Langkawi to Penang   |
+|  3pm  | Langkawi to Penang   | Penang   to Langkawi |
+|  4pm  | Penang   to Langkawi | Langkawi to Penang   |
+|  5pm  | Langkawi to Penang   | Penang   to Langkawi |
 
 ## Required Functions
 
 - User can sell ferry ticket to customer.
 
-- User can sell tickets for this week and next week.
+- Customer can choose seats, or can let computer auto-assign seats.
+
+- User can sell tickets for one week time.
 
 - User can print ticket for customer.
 
 - User can view seating arrangement of ferry.
 
-- User can view passenger info for a particular seat.
+- User can view passenger info, given seat number, or customer name.
 
 - Data should be stored in file.
 
