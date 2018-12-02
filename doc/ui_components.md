@@ -16,7 +16,7 @@
 Purchase Ticket Flow
 
 1. Route Selection Page
-2. Date Selection Page
+2. Date Selection Page. Check if tickets of the day sold out.
 3. Time Selection Page
 4. Seat Selection Method Page
 5. Seat Selection Page
