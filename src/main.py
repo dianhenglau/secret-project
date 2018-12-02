@@ -17,10 +17,11 @@ while i >= 0:
     print_breadcrumb(steps[:i + 1])
 
     result = steps[i](context, steps)
-    
+
     if result == 'B' or result == 'back':
         i -= 1
     elif result == 'R' or result == 'return':
+        context = {}
         i = 0
     else:
         i += 1
