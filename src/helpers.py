@@ -32,6 +32,9 @@ def idx_to_ferry(time_idx, ferry_idx):
 def idx_to_seat(seat_idx):
     return chr(ord('A') + seat_idx // 5) + str(seat_idx % 5 + 1)
 
+def seat_to_idx(seat_no):
+    return (ord(seat_no[0]) - ord('A')) * 5 + int(seat_no[1]) - 1
+
 def data_query(date):
     '''\
 Get data from date.
@@ -143,6 +146,57 @@ Return nothing.
     datetime.utcfromtimestamp(purchase_time).strftime('%Y-%m-%d %H:%M:%S')
 ))
 
+
+# Step Functions
+# ==============
+
+def run_steps(steps, context):
+    i = 0;
+
+    while i >= 0 and i < len(steps):
+        print_breadcrumb(steps[:i + 1])
+
+        result = steps[i](context)
+
+        if result == 'B' or result == 'back':
+            i -= 1
+        elif result == 'R' or result == 'return':
+            break
+        else:
+            i += 1
+
+def step_select_date(context):
+    context['date_choice'] = get_choice_from_user(
+        SETTINGS['dates'],
+        'date',
+        is_numeric_option=True
+    )
+
+    return context['date_choice']
+
+step_select_date.title = 'Date'
+
+def step_select_time(context):
+    context['time_choice'] = get_choice_from_user(
+        SETTINGS['times'],
+        'time',
+        is_numeric_option=True
+    )
+
+    return context['time_choice']
+
+step_select_time.title = 'Time'
+
+def step_select_ferry(context):
+    context['ferry_choice'] = get_choice_from_user(
+        SETTINGS['ferries'], 
+        'ferry', 
+        is_numeric_option=True
+    )
+    pass
+
+def step_show_passenger_info(context):
+    pass
 
 # Flow Functions
 # ==============
@@ -290,6 +344,37 @@ seats is a list of selected_seat, where selected_seat is a tuple containing:
 def print_seating_arrangement(date_choice, time_choice, ferry_choice):
     pass
 
+def get_seat_no_from_user():
+    while True:
+        seat_no = input('Enter seat number to check details: ')
+
+        if seat_no == 'back' or seat_no == 'return':
+            break
+
+        if len(seat_no) != 2:
+            print('Invalid input: length must be 2')
+            continue
+
+        if ord(seat_no[0]) < ord('A') or ord(seat_no[0]) > ord('J'):
+            print('Invalid input: first character must be A-J')
+            continue
+
+        if int(seat_no[1]) < 1 or int(seat_no[1]) > 5:
+            print('Invalid input: second character must be 1-5')
+            continue
+
+        break
+
+    return seat_no
+
+def print_seat_details(info):
+    print('''\
+Passenger's name: {}
+Purchased On: {}
+'''.format(
+    info[0],
+    datetime.utcfromtimestamp(info[1]).strftime('%Y-%m-%d %H:%M:%S')
+
 def view_seating():
     '''\
 Let user select date, time, ferry ID. Show seating arrangement. User can input seat number to check passenger's information, or "end" to return to main menu, or "back" to previous page.
@@ -368,7 +453,7 @@ Return nothing.
                 )
 
                 while True:
-                    seat_no = input('Enter seat number to check details: ')
+                    seat_no = get_seat_no_from_user()
 
                     if seat_no == 'back':
                         breadcrumbs.pop()
@@ -377,7 +462,9 @@ Return nothing.
                     elif seat_no == 'return':
                         return
 
-                    seat_idx = 
+                    seat_idx = seat_to_idx(seat_no)
+
+                    print_seat_details(seats[seat_idx])
 
 def search_passenger_info():
     '''\
