@@ -1,10 +1,5 @@
-from helpers import \
-    main_menu, \
-    purchase_ticket, \
-    data_update, \
-    print_tickets, \
-    view_seating, \
-    search_passenger_info
+from step_functions import main_menu
+from helpers import print_breadcrumb
 
 print('''\
 
@@ -14,25 +9,20 @@ print('''\
 
 ''')
 
-while True:
-    choice = main_menu()
+context = {}
+steps = [main_menu]
 
-    if choice == 'P':
-        back_to_main, date, seats = purchase_ticket()
+i = 0
+while i >= 0:
+    print_breadcrumb(steps[:i + 1])
 
-        if back_to_main:
-            continue
-
-        data_update(date, seats)
-        print_tickets(date, seats)
-
-    elif choice == 'V':
-        view_seating()
-
-    elif choice == 'S':
-        search_passenger_info()
-
-    else: # Q
-        break
+    result = steps[i](context, steps)
+    
+    if result == 'B' or result == 'back':
+        i -= 1
+    elif result == 'R' or result == 'return':
+        i = 0
+    else:
+        i += 1
 
 print('System quit')
