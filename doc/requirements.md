@@ -6,14 +6,14 @@ Build a ferry ticketing system. This system is used by ticket counter. The user 
 
 - There are 8 ferries. Each ferry had an unique ID:
 
-    - Ferry001
-    - Ferry002
-    - Ferry003
-    - Ferry004
-    - Ferry005
-    - Ferry006
-    - Ferry007
-    - Ferry008
+    - 001
+    - 002
+    - 003
+    - 004
+    - 005
+    - 006
+    - 007
+    - 008
 
 - Each ferry has 50 seats. 10 seats for business class, 40 seats for economy class.
 
@@ -33,7 +33,7 @@ Build a ferry ticketing system. This system is used by ticket counter. The user 
     - 4pm
     - 5pm
 
-| Times | Ferry001 to 004      | Ferry005 to 008      |
+| Times | Ferry 001 to 004     | Ferry 005 to 008     |
 | ----- | -------------------- | -------------------- |
 | 10am  | Penang   to Langkawi | Langkawi to Penang   |
 | 11am  | Langkawi to Penang   | Penang   to Langkawi |
