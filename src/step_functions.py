@@ -78,8 +78,8 @@ select_date.title = 'Date'
 
 def select_time(context, steps):
     context['time_choice'] = get_choice_from_user(
-        SETTINGS['times'], 
-        'time', 
+        SETTINGS['times'],
+        'time',
         is_numeric_option=True
     )
 
@@ -183,9 +183,25 @@ def print_tickets(context, steps):
 print_tickets.title = 'Print Ticket'
 
 def select_ferry(context, steps):
-    pass
+    context['ferry_choice'] = get_choice_from_user(
+        SETTINGS['ferries'],
+        'ferryID',
+        is_numeric_option=True
+    )
+
+    return  context['ferry_choice']
+
+select_ferry.title = 'FerryID'
 
 def select_seat_no(context, steps):
+    ferry_idx = ferry_to_idx(
+        context['time_choice'],
+        context['ferry_choice'])
+
+    print_seating_arrangement(
+        context['date_chocie'],
+        context['time_choice'],
+        ferry_idx)
     pass
 
 def search_name(context, steps):
@@ -193,4 +209,3 @@ def search_name(context, steps):
 
 def select_search_result(context, steps):
     pass
-
