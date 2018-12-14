@@ -60,6 +60,8 @@ Build a ferry ticketing system. This system is used by ticket counter. The user 
 
 - Data should be stored in file.
 
+- There is a limit of trial for invalid input. Return to main menu if that limit is reached.
+
 ## Additional Functions
 
 - User can set ticket price.
@@ -67,3 +69,4 @@ Build a ferry ticketing system. This system is used by ticket counter. The user 
 - User can see transaction list.
 
 - User can see sales summary.
+
