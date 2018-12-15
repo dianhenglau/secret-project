@@ -1,4 +1,6 @@
 from helpers import get_choice_from_user
+from time import time
+from datetime import date, timedelta, datetime
 
 def main_menu(context, steps):
     del steps[1:]
@@ -42,8 +44,9 @@ def main_menu(context, steps):
             select_route,
             select_date,
             select_time,
-            search_name, # input name, search it, print result
+            search_name,
             select_search_result,
+            process_result_selection,
             print_tickets
         ]
 
@@ -98,21 +101,15 @@ def select_method(context, steps):
 select_method.title = 'Method Selection'
 
 def select_seats(context, steps):
+    select_seats_method = auto_assign_seats
     if context['method_choice'] == 'S':
-        seats = select_seats_manually(
-            context['route_choice'],
-            context['date_choice'],
-            context['time_choice']
-        )
+        select_seats_method = select_seats_manually
 
-    else:
-        seats = auto_assign_seats(
-            context['route_choice'],
-            context['date_choice'],
-            context['time_choice']
-        )
-
-    context['seats'] = seats
+    context['seats'] = select_seats_method(
+        context['route_choice'],
+        context['date_choice'],
+        context['time_choice']
+    )
 
     return seats
 
@@ -143,7 +140,7 @@ def confirm_details(context, steps):
             s[3]
         ))
 
-    choice = input('Confirm (Y: Yes, B: Back, R: Return to main menu)? ')
+    choice = input('Confirm (Y-Yes, B-Back, R-Return to main menu)? ')
 
     if choice == 'Y':
         for s in seats:
@@ -183,14 +180,82 @@ def print_tickets(context, steps):
 print_tickets.title = 'Print Ticket'
 
 def select_ferry(context, steps):
-    pass
+    context['ferry_choice'] = get_choice_from_user(
+        SETTINGS['ferries'],
+        'choice',
+        is_numeric_option=True
+    )
+
+    return context['ferry_choice']
+
+select_ferry.title = 'Ferry'
 
 def select_seat_no(context, steps):
-    pass
+    date_idx = int(context['date_choice'])
+    time_idx = int(context['time_choice'])
+    ferry_idx = int(context['ferry_choice'])
+
+    if time_idx % 2:
+        ferry_idx = (ferry_idx + 4) % 8
+
+    day = date.today() + timedelta(days=date_idx)
+    data = data_query(day)
+    seats = data[time_idx][ferry_idx]
+
+    print_seating_arrangement(day, idx_to_time(time_idx), seats)
+
+    while True:
+        seat_no = get_seat_no_from_user()
+        if seat_no == 'back' or seat_no == 'return':
+            break
+        print_seat_details(seats[seat_to_idx(seat_no)])
+
+    return seat_no
+
+select_seat_no.title = 'Seat Number'
 
 def search_name(context, steps):
-    pass
+    context['search_str'] = input('Search name: ')
+
+    return context['search_str']
+
+search_name.title = 'Search'
 
 def select_search_result(context, steps):
-    pass
+    search_str = context['search_str']
 
+    route_idx = int(context['route_choice'])
+    date_idx = int(context['date_choice'])
+    time_idx = int(context['time_choice'])
+
+    day = date.today() + timedelta(days=date_idx)
+    data = data_query(day)
+    
+    ferry_candidates = data[time_idx][:4]
+    if route_idx == 1:
+        ferry_candidates = data[time_idx][4:]
+
+    results = []
+    for ferry_idx, ferry in enumerate(ferry_candidates):
+        for seat_idx, seat in enumerate(ferry):
+            if seat and seat[0] == search_str:
+                results.push([time_idx, ferry_idx, seat_idx, seat[0], seat[1]])
+    
+    context['search_results'] = results
+    context['result_choice'] = get_choice_from_user(
+        results,
+        'result',
+        is_numeric_option=True
+    )
+
+    return context['result_choice']
+
+select_search_result.title = 'Select Result'
+
+def process_result_selection(context, steps):
+    result_idx = int(context['result_choice'])
+    context['seats'] = [context['search_results'][result_idx]]
+
+    return 'continue'
+
+process_result_selection.title = '' # Hidden step
