@@ -104,6 +104,7 @@ Search Passenger Info Flow
 - Ferry ID
 - All seats of that ferry
 
+
     Enter seat number to check details:
 
 ## Passenger Info Page
