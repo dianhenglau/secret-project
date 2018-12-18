@@ -81,8 +81,8 @@ select_date.title = 'Date'
 
 def select_time(context, steps):
     context['time_choice'] = get_choice_from_user(
-        SETTINGS['times'], 
-        'time', 
+        SETTINGS['times'],
+        'time',
         is_numeric_option=True
     )
 
