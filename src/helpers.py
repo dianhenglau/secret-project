@@ -3,10 +3,6 @@ from os import mkdir
 from os.path import isdir, join
 import json
 
-
-# Data Functions
-# ==============
-
 SETTINGS = {
     'routes': ['Penang to Langkawi', 'Langkawi to Penang'],
     'dates': [str(date.today() + timedelta(days=x)) for x in range(8)],
@@ -14,79 +10,13 @@ SETTINGS = {
     'ferries': ['{:03}'.format(i) for i in range(1, 9)]
 }
 
-def idx_to_route(ferry_idx):
-    if ferry_idx >= 4:
-        return 'Langkawi to Penang'
-    else:
-        return 'Penang to Langkawi'
-
-def idx_to_time(time_idx):
-    return SETTINGS['times'][time_idx]
-
-def idx_to_ferry(time_idx, ferry_idx):
-    if time_idx % 2:
-        ferry_idx = (ferry_idx + 4) % 8
-
-    return SETTINGS['ferries'][ferry_idx]
-
-def idx_to_seat(seat_idx):
-    return chr(ord('A') + seat_idx // 5) + str(seat_idx % 5 + 1)
-
-def seat_to_idx(seat_no):
-    return (ord(seat_no[0]) - ord('A')) * 5 + int(seat_no[1]) - 1
-
-def data_query(date):
-    '''\
-Get data from date.
-
-Return data. See doc/data_description.md for data format.
-'''
-
-    try:
-        with open(join('data', 'data_' + str(date) + '.json'), 'r') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return [[[
-            None for i in range(50)]
-            for j in range(8)]
-            for k in range(8)]
-
-def data_update(date, seats):
-    '''\
-Update given seats to data according to date.
-
-Refer seats and date format at purchase_ticket().
-
-Return nothing.
-'''
-
-    data = data_query(date)
-
-    for time_idx, ferry_idx, seat_idx, passenger_name, purchase_time in seats:
-        data[time_idx][ferry_idx][seat_idx] = [passenger_name, purchase_time]
-    
-    if not isdir('data'):
-        mkdir('data', 0o755)
-
-    with open(join('date', 'data_' + str(date) + '.json'), 'w') as f:
-        json.dump(data, f)
-
-
-# Common Functions
-# ================
-
 def get_choice_from_user(
-    breadcrumbs,
-    options, 
-    choice_name, 
-    is_numeric_option=False, 
+    options,
+    choice_name,
+    is_numeric_option=False,
     include_back_option=True,
     include_main_menu_option=True
 ):
-    '''\
-'''
-
-    print(' > '.join(breadcrumbs))
 
     choices = map(str, range(len(options)))
 
@@ -115,360 +45,136 @@ def get_choice_from_user(
 
     return choice
 
-def print_tickets(date, seats):
-    '''\
-Print ticket/s according to date and seats.
+def auto_assign_seats(route_choice, date_choice, time_choice):
+    route = choice_to_route[route_choice]
+    date_idx = int(date_choice)
+    time_idx = int(time_choice)
 
-Refer seats and date format at purchase_ticket().
+    day = date.today() + timedelta(days=date_idx)
+    data = data_query(day)
+    ferries = data[time_idx]
 
-Return nothing.
-'''
+    ferry_indexes = range(0, 4)
+    if route == SETTINGS['routes'][1]:
+        ferry_indexes = range(4, 8)
 
-    for time_idx, ferry_idx, seat_idx, passenger_name, purchase_time in seats:
-        print('''\
-    +----------------+--------------------------+
-    |          Route | {: <24} |
-    |           Date | {: <24} |
-    |           Time | {: <24} |
-    |       Ferry ID | {: <24} |
-    |        Seat No | {: <24} |
-    | Passenger Name | {: <24} |
-    |   Purchased At | {: <24} |
-    +----------------+--------------------------+
+    business_left = sum([ferries[i][:10].count(None) for i in ferry_indexes])
+    economy_left = sum([ferries[i][10:].count(None) for i in ferry_indexes])
 
-'''.format(
-    idx_to_route(ferry_idx),
-    str(date),
-    idx_to_time(time_idx),
-    idx_to_ferry(time_idx, ferry_idx)
-    idx_to_seat(seat_idx),
-    passenger_name,
-    datetime.utcfromtimestamp(purchase_time).strftime('%Y-%m-%d %H:%M:%S')
-))
+    msg, business_tickets, economy_tickets = 
+        _get_number_of_tickets(business_left, economy_left)
+    if msg != 'success':
+        return msg
 
-
-# Step Functions
-# ==============
-
-def run_steps(steps, context):
-    i = 0;
-
-    while i >= 0 and i < len(steps):
-        print_breadcrumb(steps[:i + 1])
-
-        result = steps[i](context)
-
-        if result == 'B' or result == 'back':
-            i -= 1
-        elif result == 'R' or result == 'return':
-            break
-        else:
-            i += 1
-
-def step_select_date(context):
-    context['date_choice'] = get_choice_from_user(
-        SETTINGS['dates'],
-        'date',
-        is_numeric_option=True
-    )
-
-    return context['date_choice']
-
-step_select_date.title = 'Date'
-
-def step_select_time(context):
-    context['time_choice'] = get_choice_from_user(
-        SETTINGS['times'],
-        'time',
-        is_numeric_option=True
-    )
-
-    return context['time_choice']
-
-step_select_time.title = 'Time'
-
-def step_select_ferry(context):
-    context['ferry_choice'] = get_choice_from_user(
-        SETTINGS['ferries'], 
-        'ferry', 
-        is_numeric_option=True
-    )
-    pass
-
-def step_show_passenger_info(context):
-    pass
-
-# Flow Functions
-# ==============
-
-def main_menu():
-    '''\
-Print main menu. Ask input from user. Print error when necessary.
-
-Return choice.
-
-choice can be:
-- 'P'
-- 'V'
-- 'S'
-- 'Q'
-'''
-
-    breadcrumbs = ['Main Menu']
-
-    return get_choice_from_user(breadcrumbs, [
-        'Purchase Ticket',
-        'View Seating Arrangement',
-        'Search Passenger Info',
-        'Quit System'
-    ], 'choice', include_back_option=False, include_main_menu_option=False)
-
-def get_seat_selection_from_user(
-    breadcrumbs, 
-    route_choice,
-    date_choice, 
-    time_choice, 
-    method_choice
-):
-    '''\
-'''
-
-    pass
-
-def purchase_ticket():
-    '''\
-Let user select route, date, time, seat selection method, seat/s, and input name/s. Let user confirm the details.
-
-Return back_to_main, date, seats.
-
-back_to_main can be:
-- True, if user want to return to main menu
-- False, otherwise
-
-date has type datetime.date
-
-seats is a list of selected_seat, where selected_seat is a tuple containing:
-- index for time
-- index for ferry ID
-- index for seat number
-- passenger's name
-- purchased date and time (timestamp, integer)
-'''
-
-    breadcrumbs = ['Main Menu', 'Purchase Ticket', 'Route']
-
-    while True:
-        route_choice = get_choice_from_user(
-            breadcrumbs,
-            SETTINGS['routes'],
-            'route',
-            include_back_option=False
-        )
-
-        if route_choice == 'R':
-            breadcrumbs.pop()
-            return True, None, None
-
-        breadcrumbs.push('Date')
-
-        while True:
-            date_choice = get_choice_from_user(
-                breadcrumbs,
-                SETTINGS['dates'],
-                'date',
-                is_numeric_option=True
-            )
-            
-            if date_choice == 'B':
-                breadcrumbs.pop()
+    seats = []
+    for ferry_idx in ferry_indexes:
+        for seat_idx, seat in enumerate(ferries[ferry_idx]):
+            if seat is None:
+                seats.push([time_idx, ferry_idx, seat_idx, None, None])
+                found_empty_seat = True
                 break
 
-            elif date_choice == 'R':
-                return True, None, None
+    return seats
 
-            # TODO: Check if tickets of the day sold out
-
-            breadcrumbs.push('Time')
-
-            while True:
-                time_choice = get_choice_from_user(
-                    breadcrumbs,
-                    SETTINGS['times'], 
-                    'time', 
-                    is_numeric_option=True
-                )
-
-                if time_choice == 'B':
-                    breadcrumbs.pop()
-                    break
-
-                elif time_choice == 'R':
-                    return True, None, None
-
-                breadcrumbs.push('Selection Method')
-
-                while True:
-                    method_choice = get_choice_from_user(
-                        breadcrumbs,
-                        ['Select seat manually', 'Auto-assign seat for me'],
-                        'choice'
-                    )
-
-                    if method_choice == 'B':
-                        breadcrumbs.pop()
-                        break
-
-                    elif method_choice == 'R':
-                        return True, None, None
-
-                    breadcrumbs.push('Seat Selection')
-
-                    while True:
-                        seats = get_seat_selection_from_user(
-                            breadcrumbs, 
-                            route_choice,
-                            date_choice, 
-                            time_choice, 
-                            method_choice
-                        )
-
-                        if seats == 'back':
-                            breadcrumbs.pop()
-                            break
-
-                        elif seats == 'return':
-                            return True, None, None
-
-                        return False, date.today() + timedelta(days=date_choice), seats
-
-def print_seating_arrangement(date_choice, time_choice, ferry_choice):
+def select_seats_manually(route_choice, date_choice, time_choice):
     pass
 
-def get_seat_no_from_user():
+# TODO: honjun
+def idx_to_ferry(time_idx, ferry_idx):
+    pass
+
+# TODO: honjun
+#                1   2   3   4   5
+#             +--------------------+
+# Business  A |  0   1   2   3   4 |
+#           B |  5   6   7   8   9 |
+#             +--------------------+
+# Economy   C | 10  11  12  13  14 |
+#           D | 15  16  17  18  19 |
+#           E | 20  21  22  23  24 |
+#           F | 25  26  27  28  29 |
+#           G | 30  31  32  33  34 |
+#           H | 35  36  37  38  39 |
+#           I | 40  41  42  43  44 |
+#           J | 45  46  47  48  49 |
+#             +--------------------+
+def idx_to_seat(i):
+    pass
+
+# TODO: honjun
+# 0, 1, 2, 3 -> "Penang to Langkawi"
+# 4, 5, 6, 7 -> "Langkawi to Penang"
+def ferry_idx_to_route(i):
+    pass
+
+# TODO: honjun
+def idx_to_time(i):
+    pass
+
+# TODO: honjun
+# P -> "Penang to Langkawi"
+# L -> "Langkawi to Penang"
+def choice_to_route(c):
+    pass
+
+def choice_to_date(c):
+    pass
+
+# TODO: honjun
+# '7' -> '5pm'
+# '4' -> '2pm'
+# '1' -> '11am'
+def choice_to_time(c):
+    pass
+
+# TODO: honjun
+def seat_to_idx(seat_num):
+    pass
+
+def data_update(_date, seats):
+    pass
+
+def data_query(_date):
+    pass
+
+def print_seating_arrangement(_date, time, seats):
+    pass
+
+def get_seat_num_from_user():
+    pass
+
+def print_seat_details(seat_info):
+    pass
+
+# Private Functions
+# =================
+
+def _get_number_of_tickets():
+    print('How many tickets do you want to buy?')
+
     while True:
-        seat_no = input('Enter seat number to check details: ')
+        b = input('Business class: ')
 
-        if seat_no == 'back' or seat_no == 'return':
-            break
+        if b in ['back', 'return']:
+            return b, None
 
-        if len(seat_no) != 2:
-            print('Invalid input: length must be 2')
+        if b == '':
+            b = '0'
+
+        if not b.isdigit():
+            print('Invalid input. Please enter a number.')
             continue
 
-        if ord(seat_no[0]) < ord('A') or ord(seat_no[0]) > ord('J'):
-            print('Invalid input: first character must be A-J')
-            continue
+        b = 
 
-        if int(seat_no[1]) < 1 or int(seat_no[1]) > 5:
-            print('Invalid input: second character must be 1-5')
-            continue
 
-        break
 
-    return seat_no
+    while not b.isdigit() and b != '':
+        b = input('Invalid input. Enter a number: ')
 
-def print_seat_details(info):
-    print('''\
-Passenger's name: {}
-Purchased On: {}
-'''.format(
-    info[0],
-    datetime.utcfromtimestamp(info[1]).strftime('%Y-%m-%d %H:%M:%S')
+    e = input('Economy class: ')
+    while not e.isdigit() and e != '':
+        e = input('Invalid input. Enter a number: ')
 
-def view_seating():
-    '''\
-Let user select date, time, ferry ID. Show seating arrangement. User can input seat number to check passenger's information, or "end" to return to main menu, or "back" to previous page.
-
-Return nothing.
-'''
-
-    breadcrumbs = ['Main Menu', 'View Seating', 'Date']
-
-    while True:
-        date_choice = get_choice_from_user(
-            breadcrumbs,
-            SETTINGS['dates'],
-            'date',
-            is_numeric_option=True
-        )
-        
-        if date_choice == 'B':
-            breadcrumbs.pop()
-            break
-
-        elif date_choice == 'R':
-            return
-
-        breadcrumbs.push('Time')
-
-        while True:
-            time_choice = get_choice_from_user(
-                breadcrumbs,
-                SETTINGS['times'], 
-                'time', 
-                is_numeric_option=True
-            )
-
-            if time_choice == 'B':
-                breadcrumbs.pop()
-                break
-
-            elif time_choice == 'R':
-                return
-
-            breadcrumbs.push('Ferry')
-            
-            while True:
-                ferry_choice = get_choice_from_user(
-                    breadcrumbs,
-                    SETTINGS['ferries'], 
-                    'ferry', 
-                    is_numeric_option=True
-                )
-
-                if ferry_choice == 'B':
-                    breadcrumbs.pop()
-                    break
-
-                elif ferry_choice == 'R':
-                    return
-
-                date_idx = int(date_choice)
-                time_idx = int(time_choice)
-                ferry_idx = int(ferry_choice)
-
-                if time_idx % 2:
-                    ferry_idx = (ferry_idx + 4) % 8
-
-                breadcrumbs.push('Seat Plan')
-            
-                day = date.today() + timedelta(days=date_idx)
-                data = data_query(day)
-                seats = data[time_idx][ferry_idx]
-
-                print_seating_arrangement(
-                    day,
-                    idx_to_time(time_idx),
-                    seats
-                )
-
-                while True:
-                    seat_no = get_seat_no_from_user()
-
-                    if seat_no == 'back':
-                        breadcrumbs.pop()
-                        break
-
-                    elif seat_no == 'return':
-                        return
-
-                    seat_idx = seat_to_idx(seat_no)
-
-                    print_seat_details(seats[seat_idx])
-
-def search_passenger_info():
-    '''\
-Let user select route, date, time, and input name. While entering name, user can enter "end" to return to main menu, or "back" to previous page. Show search result/s. Let user select the correct result to print ticket.
-'''
-
-    print('search_passenger_info')
+    if int(b) + int(e) == 0:
+        print('Please enter 
