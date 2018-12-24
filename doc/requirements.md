@@ -70,3 +70,5 @@ Build a ferry ticketing system. This system is used by ticket counter. The user 
 
 - User can see sales summary.
 
+- User can see seats summary (how many seats left in each ferry).
+
