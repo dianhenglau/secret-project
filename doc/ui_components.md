@@ -67,18 +67,22 @@ Search Passenger Info Flow
 
 ## Seat Selection (Auto-Assigned) Page
 
-    How many tickets do you want to buy?
-    Business class: 
-    Economy class:
+```
+How many tickets do you want to buy?
+Business class: 
+Economy class:
+```
 
 ## Name Input Page
 
-    Enter passenger name.
-    1) Ferry001 A1 (Business): Lau Dian Heng
-    2) Ferry001 C1 (Economy): Hello
+```
+Enter passenger name.
+1) Ferry001 A1 (Business): Lau Dian Heng
+2) Ferry001 C1 (Economy): Hello
 
-    1 Lau Dian Heng
-    2 Hello
+1 Lau Dian Heng
+2 Hello
+```
 
 ## Details Confirmation Page
 
@@ -105,8 +109,9 @@ Search Passenger Info Flow
 - Ferry ID
 - All seats of that ferry
 
-
-    Enter seat number to check details:
+```
+Enter seat number to check details:
+```
 
 ## Passenger Info Page
 
@@ -115,7 +120,9 @@ Search Passenger Info Flow
 
 ## Name Input Page
 
-    Enter your name:
+```
+Enter your name:
+```
 
 ## Search Result Page
 
