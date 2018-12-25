@@ -1,6 +1,5 @@
-from helpers import get_choice_from_user
-from time import time
-from datetime import date, timedelta, datetime
+from helpers import *
+import time as tm
 
 def main_menu(context, steps):
     del steps[1:]
@@ -9,7 +8,7 @@ def main_menu(context, steps):
         [
             'Purchase Ticket',
             'View Seating Arrangement',
-            'Search Passenger Info',
+            'Search Passenger',
             'Quit System'
         ],
         'choice',
@@ -21,6 +20,7 @@ def main_menu(context, steps):
 
     if choice == 'P':
         steps += [
+            'Purchase Ticket',
             select_route,
             select_date,
             select_time,
@@ -33,17 +33,17 @@ def main_menu(context, steps):
 
     elif choice == 'V':
         steps += [
+            'View Seating Arrangement',
             select_date,
             select_time,
             select_ferry,
-            select_seat_no
+            select_seat_num
         ]
 
     elif choice == 'S':
         steps += [
-            select_route,
+            'Search Passenger',
             select_date,
-            select_time,
             search_name,
             select_search_result,
             process_result_selection,
@@ -70,7 +70,7 @@ select_route.title = 'Route'
 
 def select_date(context, steps):
     context['date_choice'] = get_choice_from_user(
-        SETTINGS['dates'],
+        list(map(str, SETTINGS['dates'])),
         'date',
         is_numeric_option=True
     )
@@ -105,21 +105,37 @@ def select_seats(context, steps):
     if context['method_choice'] == 'S':
         select_seats_method = select_seats_manually
 
+    # seats is a list of selected_seat, where selected_seat is a list containing:
+    # - index for time
+    # - index for ferry ID
+    # - index for seat number
+    # - passenger's name
+    # - purchased date and time (timestamp, integer)
+
     context['seats'] = select_seats_method(
         context['route_choice'],
         context['date_choice'],
         context['time_choice']
     )
 
-    return seats
+    return context['seats']
 
 select_seats.title = 'Seats'
 
 def input_seat_names(context, steps):
+    print('''\
+Ferry ID  Seat Number  Passenger Name
+--------  -----------  --------------\
+''')
+
     for s in context['seats']:
-        name = input('{} {}: '.format(idx_to_ferry(s[1]), idx_to_seat(s[2])))
+        ferry_id = idx_to_ferry_id(s[0], s[1])
+        seat_num = idx_to_seat(s[2])
+        name = input('{: <8}  {: <11}  '.format(ferry_id, seat_num)).strip()
+
         if name == 'back' or name == 'return':
             return name
+
         s[3] = name
 
     return context['seats']
@@ -127,24 +143,32 @@ def input_seat_names(context, steps):
 input_seat_names.title = 'Names'
 
 def confirm_details(context, steps):
-    print('Route: {}  Date: {}  Time: {}'.format(
-        choice_to_route(context['route_choice']),
-        choice_to_date(context['date_choice']),
-        choice_to_time(context['time_choice'])
-    ))
+    print('''\
+Route : {}  
+Date  : {}  
+Time  : {}
 
-    for s in context['seats']:
-        print('Ferry {} seat {} name {}'.format(
-            idx_to_ferry(s[0], s[1]),
-            idx_to_seat(s[2]),
-            s[3]
+Ferry ID  Seat Number  Passenger Name
+--------  -----------  --------------\
+'''.format(
+    choice_to_route(context['route_choice']),
+    choice_to_date(context['date_choice']),
+    choice_to_time(context['time_choice'])
+))
+
+    for time_idx, ferry_idx, seat_idx, passenger_name, _ in context['seats']:
+        print('{: <8}  {: <11}  {}'.format(
+            idx_to_ferry_id(time_idx, ferry_idx),
+            idx_to_seat(seat_idx),
+            passenger_name
         ))
+    print()
 
-    choice = input('Confirm (Y-Yes, B-Back, R-Return to main menu)? ')
+    choice = input('Confirm? (Y-Yes, B-Back, R-Return to main menu): ').strip()
 
     if choice == 'Y':
-        for s in seats:
-            s[4] = int(time.time())
+        for s in context['seats']:
+            s[4] = int(tm.time())
 
         data_update(choice_to_date(context['date_choice']), context['seats'])
 
@@ -153,7 +177,7 @@ def confirm_details(context, steps):
 confirm_details.title = 'Confirmation'
 
 def print_tickets(context, steps):
-    for time_idx, ferry_idx, seat_idx, passenger_name, purchase_time in context['seats']:
+    for time_idx, ferry_idx, seat_idx, passenger_name, purchased_on in context['seats']:
         print('''\
     +----------------+--------------------------+
     |          Route | {: <24} |
@@ -164,15 +188,14 @@ def print_tickets(context, steps):
     | Passenger Name | {: <24} |
     |   Purchased At | {: <24} |
     +----------------+--------------------------+
-
 '''.format(
-    idx_to_route(ferry_idx),
-    str(date),
+    ferry_idx_to_route(ferry_idx),
+    date_to_str(choice_to_date(context['date_choice'])),
     idx_to_time(time_idx),
-    idx_to_ferry(time_idx, ferry_idx)
+    idx_to_ferry_id(time_idx, ferry_idx),
     idx_to_seat(seat_idx),
     passenger_name,
-    datetime.utcfromtimestamp(purchase_time).strftime('%Y-%m-%d %H:%M:%S')
+    timestamp_to_str(purchased_on)
 ))
 
     return 'R'
@@ -190,60 +213,74 @@ def select_ferry(context, steps):
 
 select_ferry.title = 'Ferry'
 
-def select_seat_no(context, steps):
-    date_idx = int(context['date_choice'])
+def select_seat_num(context, steps):
     time_idx = int(context['time_choice'])
     ferry_idx = int(context['ferry_choice'])
 
-    if time_idx % 2:
-        ferry_idx = (ferry_idx + 4) % 8
+    if time_idx%2:
+        ferry_idx = (ferry_idx + 4)%8
 
-    day = date.today() + timedelta(days=date_idx)
-    data = data_query(day)
+    data = data_query(choice_to_date(context['date_choice']))
     seats = data[time_idx][ferry_idx]
 
-    print_seating_arrangement(day, idx_to_time(time_idx), seats)
+    print_seating_arrangement(
+        date_to_str(choice_to_date(context['date_choice'])),
+        idx_to_time(time_idx), 
+        idx_to_ferry_id(time_idx, ferry_idx), 
+        seats
+    )
 
     while True:
-        seat_no = get_seat_no_from_user()
-        if seat_no == 'back' or seat_no == 'return':
+        seat_num = get_seat_num_from_user()
+
+        if seat_num == 'back' or seat_num == 'return':
             break
-        print_seat_details(seats[seat_to_idx(seat_no)])
 
-    return seat_no
+        print_seat_details(seats[seat_to_idx(seat_num)])
 
-select_seat_no.title = 'Seat Number'
+    return seat_num
+
+select_seat_num.title = 'Seat Number'
 
 def search_name(context, steps):
-    context['search_str'] = input('Search name: ')
+    context['search_str'] = input('Search name: ').strip()
 
     return context['search_str']
 
 search_name.title = 'Search'
 
 def select_search_result(context, steps):
-    search_str = context['search_str']
-
-    route_idx = int(context['route_choice'])
-    date_idx = int(context['date_choice'])
-    time_idx = int(context['time_choice'])
-
-    day = date.today() + timedelta(days=date_idx)
-    data = data_query(day)
-    
-    ferry_candidates = data[time_idx][:4]
-    if route_idx == 1:
-        ferry_candidates = data[time_idx][4:]
+    date = choice_to_date(context['date_choice'])
+    data = data_query(date)
 
     results = []
-    for ferry_idx, ferry in enumerate(ferry_candidates):
-        for seat_idx, seat in enumerate(ferry):
-            if seat and seat[0] == search_str:
-                results.push([time_idx, ferry_idx, seat_idx, seat[0], seat[1]])
+    for time_idx, time in enumerate(data):
+        for ferry_idx, ferry in enumerate(time):
+            for seat_idx, seat in enumerate(ferry):
+                if seat and seat[0] == context['search_str']:
+                    results.append([time_idx, ferry_idx, seat_idx, seat[0], seat[1]])
     
     context['search_results'] = results
+
+    options = ['''\
+\tName          : {}
+\tRoute         : {}
+\tDate and Time : {} {}
+\tFerry ID      : {}
+\tSeat Number   : {}
+\tPurchased On  : {}
+'''.format(
+    passenger_name, 
+    ferry_idx_to_route(ferry_idx),
+    date_to_str(date),
+    idx_to_time(time_idx),
+    idx_to_ferry_id(time_idx, ferry_idx), 
+    idx_to_seat(seat_idx),
+    timestamp_to_str(purchased_on)
+) for time_idx, ferry_idx, seat_idx, passenger_name, purchased_on in results]
+
     context['result_choice'] = get_choice_from_user(
-        results,
+        options,
         'result',
         is_numeric_option=True
     )
