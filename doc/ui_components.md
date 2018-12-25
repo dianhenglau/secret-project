@@ -35,12 +35,10 @@ View Seating Arrangement Flow
 
 Search Passenger Info Flow
 
-1. Route Selection Page
-2. Date Selection Page
-3. Time Selection Page
-4. Name Input Page
-5. Search Result Page
-6. Print Ticket Page
+1. Date Selection Page
+2. Name Input Page
+3. Search Result Page
+4. Print Ticket Page
 
 ## Route Selection Page
 
