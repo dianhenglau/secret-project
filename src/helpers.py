@@ -229,7 +229,12 @@ def print_breadcrumb(steps):
 # =================
 
 def _get_number_of_tickets(business_left, economy_left):
-    print('How many tickets do you want to buy?')
+    print('''
+To go back to previous step, enter "back".
+To return to main menu, enter "return".
+
+How many tickets do you want to buy?\
+''')
 
     class_ = ['Business', 'Economy']
     seats_left = [business_left, economy_left]
@@ -275,6 +280,9 @@ def _get_seats_input(ferries, ferry_indexes, time_idx):
     print('''
 Enter seats in the format: <ferry_id> <seat>... <ferry_id> <seat>...
 For example: 001 A1 A2 G1 002 C1 D1 E1 F1 003 J5
+
+To go back to previous step, enter "back".
+To return to main menu, enter "return".
 ''')
 
     while True:

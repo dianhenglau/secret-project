@@ -124,6 +124,10 @@ select_seats.title = 'Seats'
 
 def input_seat_names(context, steps):
     print('''\
+Enter passengers' name.
+To go back to previous step, enter "back".
+To return to main menu, enter "return".
+
 Ferry ID  Seat Number  Passenger Name
 --------  -----------  --------------\
 ''')
@@ -230,6 +234,11 @@ def select_seat_num(context, steps):
         seats
     )
 
+    print('''\
+To go back to previous step, enter "back".
+To return to main menu, enter "return".
+''')
+
     while True:
         seat_num = get_seat_num_from_user()
 
@@ -243,6 +252,11 @@ def select_seat_num(context, steps):
 select_seat_num.title = 'Seat Number'
 
 def search_name(context, steps):
+    print('''\
+To go back to previous step, enter "back".
+To return to main menu, enter "return".
+''')
+
     context['search_str'] = input('Search name: ').strip()
 
     return context['search_str']
