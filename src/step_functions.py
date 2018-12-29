@@ -22,7 +22,7 @@ def main_menu(context, steps):
             'Purchase Ticket',
             select_route,
             select_date,
-            select_time,
+            select_time_for_purchasing,
             select_method,
             select_seats,
             input_seat_names,
@@ -85,6 +85,33 @@ def select_time(context, steps):
     return context['time_choice']
 
 select_time.title = 'Time'
+
+def select_time_for_purchasing(context, steps):
+    data = data_query(choice_to_date(context['date_choice']))
+
+    ferry_indexes = range(4)
+    if choice_to_route(context['route_choice']) == SETTINGS['routes'][1]:
+        ferry_indexes = range(4, 8)
+
+    available_seats_count = [
+        [
+            sum([data[i][j][:10].count(None) for j in ferry_indexes]),
+            sum([data[i][j][10:].count(None) for j in ferry_indexes])
+        ] for i in range(len(SETTINGS['times']))
+    ]
+
+    context['time_choice'] = get_choice_from_user([
+        {
+            'key': str(i),
+            'value': x.ljust(5) + '(Seats left: {: <2} business, {: <3} economy)'
+                .format(*available_seats_count[i]),
+            'disabled': sum(available_seats_count[i]) == 0
+        } for i, x in enumerate(SETTINGS['times'])
+    ], choice_name='time')
+
+    return context['time_choice']
+
+select_time_for_purchasing.title = 'Time'
 
 def select_method(context, steps):
     context['method_choice'] = get_choice_from_user([
