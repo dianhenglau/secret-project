@@ -6,12 +6,11 @@ def main_menu(context, steps):
 
     choice = get_choice_from_user(
         [
-            'Purchase Ticket',
-            'View Seating Arrangement',
-            'Search Passenger',
-            'Quit System'
+            {'key': 'P', 'value': 'Purchase Ticket'},
+            {'key': 'V', 'value': 'View Seating Arrangement'},
+            {'key': 'S', 'value': 'Search Passenger'},
+            {'key': 'Q', 'value': 'Quit System'}
         ],
-        'choice',
         include_back_option=False,
         include_main_menu_option=False
     )
@@ -59,8 +58,8 @@ main_menu.title = 'Main Menu'
 
 def select_route(context, steps):
     context['route_choice'] = get_choice_from_user(
-        SETTINGS['routes'],
-        'route',
+        [{'key': x[0], 'value': x} for x in SETTINGS['routes']],
+        choice_name='route',
         include_back_option=False
     )
 
@@ -69,32 +68,29 @@ def select_route(context, steps):
 select_route.title = 'Route'
 
 def select_date(context, steps):
-    context['date_choice'] = get_choice_from_user(
-        list(map(str, SETTINGS['dates'])),
-        'date',
-        is_numeric_option=True
-    )
+    context['date_choice'] = get_choice_from_user([
+        {'key': str(i), 'value': str(x)}
+        for i, x in enumerate(SETTINGS['dates'])
+    ], choice_name='date')
 
     return context['date_choice']
 
 select_date.title = 'Date'
 
 def select_time(context, steps):
-    context['time_choice'] = get_choice_from_user(
-        SETTINGS['times'],
-        'time',
-        is_numeric_option=True
-    )
+    context['time_choice'] = get_choice_from_user([
+        {'key': str(i), 'value': x} for i, x in enumerate(SETTINGS['times'])
+    ], choice_name='time')
 
     return context['time_choice']
 
 select_time.title = 'Time'
 
 def select_method(context, steps):
-    context['method_choice'] = get_choice_from_user(
-        ['Select seats manually', 'Auto-assign seats for me'],
-        'choice'
-    )
+    context['method_choice'] = get_choice_from_user([
+        {'key': 'S', 'value': 'Select seats manually'}, 
+        {'key': 'A', 'value': 'Auto-assign seats for me'}
+    ], choice_name='method')
 
     return context['method_choice']
 
@@ -207,11 +203,9 @@ def print_tickets(context, steps):
 print_tickets.title = 'Print Ticket'
 
 def select_ferry(context, steps):
-    context['ferry_choice'] = get_choice_from_user(
-        SETTINGS['ferries'],
-        'choice',
-        is_numeric_option=True
-    )
+    context['ferry_choice'] = get_choice_from_user([
+        {'key': str(i), 'value': x} for i, x in enumerate(SETTINGS['ferries'])
+    ], choice_name='ferry')
 
     return context['ferry_choice']
 
@@ -293,11 +287,9 @@ def select_search_result(context, steps):
     timestamp_to_str(purchased_on)
 ) for time_idx, ferry_idx, seat_idx, passenger_name, purchased_on in results]
 
-    context['result_choice'] = get_choice_from_user(
-        options,
-        'result',
-        is_numeric_option=True
-    )
+    context['result_choice'] = get_choice_from_user([
+        {'key': str(i), 'value': x} for i, x in enumerate(options)
+    ], choice_name='result')
 
     return context['result_choice']
 

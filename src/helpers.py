@@ -16,35 +16,34 @@ def processed_input(prompt_str=''):
 
 def get_choice_from_user(
     options,
-    choice_name,
-    is_numeric_option=False,
+    choice_name='option',
     include_back_option=True,
     include_main_menu_option=True
 ):
 
-    choices = list(map(str, range(len(options))))
-    options = options[:]
-
-    if not is_numeric_option:
-        choices = [x[0] for x in options]
-
     if include_back_option:
-        choices.append('B')
-        options.append('Back')
+        options.append({'key': 'B', 'value': 'Back'})
 
     if include_main_menu_option:
-        choices.append('R')
-        options.append('Return to Main Menu')
+        options.append({'key': 'R', 'value': 'Return to Main Menu'})
 
-    for choice, option in zip(choices, options):
-        print(choice + ': ' + option)
+    for o in options:
+        if 'disabled' not in o:
+            o['disabled'] = False
+
+    for o in options:
+        print((o['key'] if not o['disabled'] else '-') + ': ' + o['value'])
     print()
 
-    
-    for i in range(3):
-        choice = processed_input('Select a {}: '.format(choice_name))
+    valid_choices = [o['key'] for o in options if not o['disabled']]
 
-        if choice not in choices:
+    for i in range(3):
+        choice = processed_input('Select {} {}: '.format(
+            'an' if choice_name[0] in ['a', 'e', 'i', 'o', 'u'] else 'a',
+            choice_name
+        ))
+
+        if choice not in valid_choices:
             print('Invalid input')
             continue
 
