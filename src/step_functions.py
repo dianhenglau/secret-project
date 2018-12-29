@@ -135,7 +135,7 @@ Ferry ID  Seat Number  Passenger Name
     for s in context['seats']:
         ferry_id = idx_to_ferry_id(s[0], s[1])
         seat_num = idx_to_seat(s[2])
-        name = input('{: <8}  {: <11}  '.format(ferry_id, seat_num)).strip()
+        name = processed_input('{: <8}  {: <11}  '.format(ferry_id, seat_num))
 
         if name == 'back' or name == 'return':
             return name
@@ -168,7 +168,7 @@ Ferry ID  Seat Number  Passenger Name
         ))
     print()
 
-    choice = input('Confirm? (Y-Yes, B-Back, R-Return to main menu): ').strip()
+    choice = processed_input('Confirm? (Y-Yes, B-Back, R-Return to main menu): ')
 
     if choice == 'Y':
         for s in context['seats']:
@@ -257,7 +257,7 @@ To go back to previous step, enter "back".
 To return to main menu, enter "return".
 ''')
 
-    context['search_str'] = input('Search name: ').strip()
+    context['search_str'] = processed_input('Search name: ')
 
     return context['search_str']
 

@@ -11,6 +11,9 @@ SETTINGS = {
     'ferries': ['{:03}'.format(i) for i in range(1, 9)]
 }
 
+def processed_input(prompt_str=''):
+    return input(prompt_str).strip()
+
 def get_choice_from_user(
     options,
     choice_name,
@@ -38,7 +41,7 @@ def get_choice_from_user(
     print()
 
     while True:
-        choice = input('Select a {}: '.format(choice_name)).strip()
+        choice = processed_input('Select a {}: '.format(choice_name))
 
         if choice not in choices:
             print('Invalid input')
@@ -184,7 +187,7 @@ def print_seating_arrangement(date, time, ferry_id, seats):
 
 def get_seat_num_from_user():
     while True:
-        x = input('Enter seat number to check detail (e.g. A3): ')
+        x = processed_input('Enter seat number to check detail (e.g. A3): ')
 
         if x in ['back', 'return']:
             return x
@@ -229,7 +232,7 @@ def print_breadcrumb(steps):
 # =================
 
 def _get_number_of_tickets(business_left, economy_left):
-    print('''
+    print('''\
 To go back to previous step, enter "back".
 To return to main menu, enter "return".
 
@@ -242,7 +245,9 @@ How many tickets do you want to buy?\
 
     i = 0
     while i < 2:
-        x = input('{} class ({} seats available): '.format(class_[i], seats_left[i])).strip()
+        x = processed_input('{} class ({} seats available): '.format(
+            class_[i], seats_left[i]
+        ))
 
         if x in ['back', 'return']:
             if x == 'back' and i == 1:
@@ -286,7 +291,7 @@ To return to main menu, enter "return".
 ''')
 
     while True:
-        x = input('Enter seats: ').strip()
+        x = processed_input('Enter seats: ')
 
         if x in ['back', 'return']:
             return x
