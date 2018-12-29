@@ -40,7 +40,8 @@ def get_choice_from_user(
         print(choice + ': ' + option)
     print()
 
-    while True:
+    
+    for i in range(3):
         choice = processed_input('Select a {}: '.format(choice_name))
 
         if choice not in choices:
@@ -48,6 +49,9 @@ def get_choice_from_user(
             continue
 
         return choice
+
+    print('Exceeded trial limit. Return to main menu.')
+    return 'R'
 
 def auto_assign_seats(route_choice, date_choice, time_choice):
     time_idx = int(time_choice)
