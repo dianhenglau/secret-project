@@ -191,7 +191,11 @@ Ferry ID  Seat Number  Passenger Name
         ))
     print()
 
-    choice = processed_input('Confirm? (Y-Yes, B-Back, R-Return to main menu): ')
+    while True:
+        choice = processed_input('Confirm? (Y-Yes, B-Back, R-Return to main menu): ')
+        if choice in ['Y', 'B', 'R']:
+            break
+        print('Unrecognized input "{}"'.format(choice))
 
     if choice == 'Y':
         for s in context['seats']:
