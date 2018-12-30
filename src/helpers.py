@@ -49,7 +49,11 @@ def get_choice_from_user(
 
         return choice
 
-    print('Exceeded trial limit. Return to main menu.')
+    return_msg = 'Quit system.'
+    if include_back_option or include_main_menu_option:
+        return_msg = 'Return to main menu.'
+    print('Exceeded trial limit.', return_msg)
+
     return 'R'
 
 def auto_assign_seats(route_choice, date_choice, time_choice):
