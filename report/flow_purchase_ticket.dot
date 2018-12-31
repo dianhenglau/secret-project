@@ -1,0 +1,49 @@
+digraph G {
+    node [shape="ellipse"];
+    start;
+    stop;
+
+    node [shape="point"];
+    _a; _b; _c; _d; _e; _f; _g; _h;
+
+    node [shape="box"];
+    a [label="Get route from user"];
+    b [label="Get date from user"];
+    c [label="Get time from user"];
+    d [label="Get seat selection method from user"];
+    e [label="Get seat selection from user"];
+    f [label="Get passenger name from user"];
+    g [label="Print details"];
+    h [label="Get confimation from user"];
+    i [label="Print ticket"];
+
+    edge [weight=100];
+    start -> a -> b -> c -> d -> e -> f -> g -> h -> i;
+    _a -> _b -> _c -> _d -> _e -> _f -> _g -> _h -> stop;
+
+    edge [weight=1];
+    a -> b -> c -> d -> e -> f -> h [dir="back", label="    If user want to back to previous step"];
+
+    edge [label="If user want to return to main menu"];
+    {rank="same"; a -> _a;}
+    {rank="same"; b -> _b;}
+    {rank="same"; c -> _c;}
+    {rank="same"; d -> _d;}
+    {rank="same"; e -> _e;}
+    {rank="same"; f -> _f;}
+    {rank="same"; h -> _g;}
+
+    edge [label=""];
+    {rank="same"; i -> _h;}
+
+    edge [label="If user enter invalid input    "];
+    a:sw -> a:nw;
+    b:sw -> b:nw;
+    c:sw -> c:nw;
+    d:sw -> d:nw;
+    e:sw -> e:nw;
+    f:sw -> f:nw;
+    h:sw -> h:nw;
+
+    edge [label=""];
+}

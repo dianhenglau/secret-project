@@ -1,0 +1,38 @@
+digraph G {
+    node [shape="ellipse"];
+    start;
+    stop;
+
+    node [shape="point"];
+    _a; _b; _c; _d;
+
+    node [shape="box"];
+    a [label="Get date from user"];
+    b [label="Get time from user"];
+    c [label="Get ferry from user"];
+    d [label="Print seating arrangement"];
+    e [label="Get seat from user"];
+    f [label="Print seat info"];
+
+    edge [weight=100];
+    start -> a -> b -> c -> d -> e -> f;
+    _a -> _b -> _c -> _d -> stop;
+
+    edge [weight=1];
+    a -> b -> c -> e [dir="back", label="    If user want to back to previous step"];
+    e -> f [dir="back"];
+
+    edge [label="If user want to return to main menu"];
+    {rank="same"; a -> _a;}
+    {rank="same"; b -> _b;}
+    {rank="same"; c -> _c;}
+    {rank="same"; e -> _d;}
+
+    edge [label="If user enter invalid input    "];
+    a:sw -> a:nw;
+    b:sw -> b:nw;
+    c:sw -> c:nw;
+    e:sw -> e:nw;
+
+    edge [label=""];
+}

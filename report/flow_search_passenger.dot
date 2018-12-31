@@ -1,0 +1,37 @@
+digraph G {
+    node [shape="ellipse"];
+    start;
+    stop;
+
+    node [shape="point"];
+    _a; _b; _c; _d;
+
+    node [shape="box"];
+    a [label="Get date from user"];
+    b [label="Get name from user"];
+    c [label="Print search results"];
+    d [label="Get result selection from user"];
+    e [label="Print ticket"];
+
+    edge [weight=100];
+    start -> a -> b -> c -> d -> e;
+    _a -> _b -> _c -> _d -> stop;
+
+    edge [weight=1];
+    a -> b -> d [dir="back", label="    If user want to back to preview step"];
+
+    edge [label="If user want to return to main menu"];
+    {rank="same"; a -> _a;}
+    {rank="same"; b -> _b;}
+    {rank="same"; d -> _c;}
+
+    edge [label=""];
+    {rank="same"; e -> _d;}
+
+    edge [label="If user enter invalid input    "];
+    a:sw -> a:nw;
+    b:sw -> b:nw;
+    d:sw -> d:nw;
+
+    edge [label=""];
+}

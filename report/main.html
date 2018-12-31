@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>FSD Assignment Report</title>
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <article class="common-cover">
+      <img class="logo" src="apu_logo.png">
+
+      <h1>Group Assignment</h1>
+
+      <p>CT010-3-1-FSD</p>
+
+      <p>Fundamentals of Software Development</p>
+
+      <p>UC1F1809 SE/IT/CS/CS(DA)/CE/IS/MMT/IT(IOT)/CGD</p>
+
+      <p>Hand Out Date: 08 October 2018</p>
+
+      <p>Hand In Date: 31 December 2018</p>
+
+      <p>Weight: 50%</p>
+
+      <hr>
+
+      <h2>Instructions To Candidates:</h2>
+
+      <ol>
+        <li>Submit your assignment at the administrative counter.</li>
+        <li>Students are advised to underpin their answers with the use of references (cited using the Harvard Name System of Referencing).</li>
+        <li>Late submission will be awarded zero (0) unless Extenuating Circumstances (EC) are upheld.</li>
+        <li>Cases of plagiarism will be penalized.</li>
+        <li>The assignment should be bound in an appropriate style (comb bound or stapled).</li>
+        <li>Where the assignment should be submitted in both hard copy and soft copy, the soft copy of the written assignment and source code (where appropriate) should be on a CD in an envelope / CD cover and attached to the hard copy.</li>
+        <li>You must obtain 50% overall to pass this module.</li>
+      </ol>
+
+      <footer>
+        Version 1.2 UCTI AssCv 2007-10-23
+      </footer>
+    </article>
+
+    <article class="marking-grid">
+      <h1>Marking Grid</h1>
+
+      <table>
+        <tr>
+          <td colspan="4">Group Component (50%)</td>
+        </tr>
+        <tr>
+          <td>Fully</td>
+          <td>Partially</td>
+          <td>Not</td>
+          <td>Performance Criteria</td>
+        </tr>
+        <tr class="header-row">
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>Pass (20 - 29 marks)</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Program execution</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Module integration</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Between 50% - 65% of the system’s modules are coded</td> 
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Basic programming structures (control structure) implemented</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Design of the solution in pseudo-code and flowchart covers 50% - 60% of the basic requirements of the system</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Some errors / omissions in design - pseudo-code / flowchart</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Less than 50% of documentation complete</td>
+        </tr>
+        <tr class="header-row">
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>Credit (30 - 39 marks)</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>All pass criteria fully met</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Good system design &amp; module integration</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Between 65% - 75% of the system’s modules are coded</td> 
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Basic programming structures (control structures) implemented</td> 
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Intermediate programming structures (lists, functions and file I/O) implemented</td> 
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Design of the solution in pseudo-code and flowchart covers 65% - 75% of the basic requirements of the system</td> 
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Minor errors / omissions in design - pseudo-code / flowchart</td> 
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Between 60% - 80% of the documentation complete</td> 
+        </tr>
+        <tr class="header-row">
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>Distinction (40 - 50 marks)</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>All credit criteria fully met</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Excellent system design &amp; module integration</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>More than 80% of the system’s modules coded</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Intermediate programming structures (lists, functions and file I/O) implemented</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Detailed design of the solution in pseudo-code and flowchart in terms of style and unique logics</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Hardly any errors / omissions in design - pseudo-code / flowchart</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Above 80% of the documentation complete</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td colspan="4">Individual Component (50%)</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Grace Ong<br>TP053002</td>
+          <td>Lau Dian Heng<br>TP053385</td>
+          <td>Toh Hon Jun<br>TP053047</td>
+        </tr>
+        <tr>
+          <td>Grade/Marks</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td rowspan="2">Understanding of algorithm (10%)</td>
+          <td>Fully<br>Partially<br>Not</td>
+          <td>Fully<br>Partially<br>Not</td>
+          <td>Fully<br>Partially<br>Not</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td rowspan="2">Contribution toward group work (10%)</td>
+          <td>Fully<br>Partially<br>Not</td>
+          <td>Fully<br>Partially<br>Not</td>
+          <td>Fully<br>Partially<br>Not</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td rowspan="2">Understanding of programming structures (15%)</td>
+          <td>Fully<br>Partially<br>Not</td>
+          <td>Fully<br>Partially<br>Not</td>
+          <td>Fully<br>Partially<br>Not</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td rowspan="2">Presentation and QnA (15%)</td>
+          <td>Fully<br>Partially<br>Not</td>
+          <td>Fully<br>Partially<br>Not</td>
+          <td>Fully<br>Partially<br>Not</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+
+      <h2>Additional Comments</h2>
+    </article>
+
+    <article class="custom-cover">
+      <h1>FSD Group Assignment</h1>
+
+      <pre class="logo">
+    dMMMMMP dMMMMMP dMMMMb  dMMMMb  dMP dMP                        
+   dMP     dMP     dMP.dMP dMP.dMP dMP.dMP                         
+  dMMMP   dMMMP   dMMMMK" dMMMMK"  VMMMMP                          
+ dMP     dMP     dMP"AMF dMP"AMF dA .dMP                           
+dMP     dMMMMMP dMP dMP dMP dMP  VMMMP"                            
+                                                                   
+ dMMMMMMP dMP .aMMMb  dMP dMP dMMMMMP dMMMMMMP dMP dMMMMb  .aMMMMP 
+   dMP   amr dMP"VMP dMP.dM" dMP        dMP   amr dMP dMP dMP"     
+  dMP   dMP dMP     dMMMK"  dMMMP      dMP   dMP dMP dMP dMP MMP"  
+ dMP   dMP dMP.aMP dMP"AM" dMP        dMP   dMP dMP dMP dMP.dMP    
+dMP   dMP  VMMMP" dMP dMP dMMMMMP    dMP   dMP dMP dMP  VMMMP"     
+                                                                   
+   .dMMMb  dMP dMP .dMMMb dMMMMMMP dMMMMMP dMMMMMMMMb              
+  dMP" VP dMP.dMP dMP" VP   dMP   dMP     dMP"dMP"dMP              
+  VMMMb   VMMMMP  VMMMb    dMP   dMMMP   dMP dMP dMP               
+dP .dMP dA .dMP dP .dMP   dMP   dMP     dMP dMP dMP                
+VMMMP"  VMMMP"  VMMMP"   dMP   dMMMMMP dMP dMP dMP                 
+</pre>
+
+      <h2>Members</h2>
+
+      <ol>
+        <li>Grace Ong - TP053002</li>
+        <li>Lau Dian Heng - TP053385</li>
+        <li>Toh Hon Jun - TP053047</li>
+      </ol>
+
+      <!--
+      <h2>Abstract</h2>
+
+      <p></p>
+      -->
+
+    </article>
+
+    <article class="toc">
+      <h1>Table of Contents</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Page</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr> <td> Workload Matrix </td>                 <td>6</td> </tr>
+          <tr> <td> Basic Requirements </td>              <td>7</td> </tr>
+          <tr> <td> Assumptions </td>                     <td>8</td> </tr>
+          <tr> <td> System Features </td>                 <td>9</td> </tr>
+          <tr> <td> Data Design </td>                     <td>10</td> </tr>
+          <tr> <td> Flow Design </td>                     <td>11</td> </tr>
+          <tr> <td> Architectural Design </td>            <td>15</td> </tr>
+          <tr> <td> Sample Output </td>                   <td>19</td> </tr>
+          <tr> <td> Additional Python Features Used </td> <td>29</td> </tr>
+          <tr> <td> References </td>                      <td>32</td> </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article>
+      <h1>Workload Matrix</h1>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Workload (%)</th>
+            <th>Signature</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Grace Ong<br>TP053002</td>
+            <td>33</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Lau Dian Heng<br>TP053385</td>
+            <td>33</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Toh Hon Jun<br>TP053047</td>
+            <td>33</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article>
+      <h1>Basic Requirements</h1>
+
+      <p>Build a ferry ticketing system for a ferry company.</p>
+
+      <p>The company has 8 ferries. Each ferry has an unique ID:</p>
+
+      <ul>
+        <li>001</li>
+        <li>002</li>
+        <li>003</li>
+        <li>004</li>
+        <li>005</li>
+        <li>006</li>
+        <li>007</li>
+        <li>008</li>
+      </ul>
+
+      <p>Each ferry has 50 seats. 10 seats for business class, 40 seats for economy class.</p>
+
+      <p>There are two routes:</p>
+
+      <ul>
+        <li>Penang to Langkawi</li>
+        <li>Langkawi to Penang</li>
+      </ul>
+
+      <p>Ferries depart at following 8 times:</p>
+
+      <ul>
+        <li>10am</li>
+        <li>11am</li>
+        <li>12pm</li>
+        <li>1pm</li>
+        <li>2pm</li>
+        <li>3pm</li>
+        <li>4pm</li>
+        <li>5pm</li>
+      </ul>
+
+      <p>This system can sell ferry ticket to customer.</p>
+
+      <p>This system can print ticket for customer.</p>
+
+      <p>This system can show seating arrangement of a ferry.</p>
+
+    </article>
+
+    <article>
+      <h1>Assumptions</h1>
+
+      <p>This section is about those requirements and info which are not given in the instruction but are needed to implement this system.</p>
+
+      <p>The Ferry Ticketing System is designed for the ferry ticket counter staffs. There are few features added to the system for the staffs to cope with any situation.</p>
+
+      <ol>
+        <li>The staffs can select the seats either manually or automatically depending on the customers’ demands.</li>
+        <li>The staffs can select seats in bundle depending on the seat availability.</li>
+        <li>The staffs can reprint the customers’ tickets using the search engine provided.</li>
+        <li>The staffs view customers’ purchase details in the seating arrangement section.</li>
+        <li>The staffs can quickly check the seat availability in the purchase ticket section.</li>
+      </ol>
+
+      <p>There are only 8 ferries, each with unique ferry ID in the system. At 10am, 4 ferries will depart Penang to Langkawi and another 4 ferries will depart from Langkawi to Penang. These ferries will travel back and forth at every one-hour intervals from 10am to 5pm. </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Times</th>
+            <th>Ferry 001 to 004</th>
+            <th>Ferry 005 to 008</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>10am</td>
+            <td>Penang to Langkawi</td>
+            <td>Langkawi to Penang</td>
+          </tr>
+          <tr>
+            <td>11am</td>
+            <td>Langkawi to Penang</td>
+            <td>Penang to Langkawi</td>
+          </tr>
+          <tr>
+            <td>12pm</td>
+            <td>Penang to Langkawi</td>
+            <td>Langkawi to Penang</td>
+          </tr>
+          <tr>
+            <td>1pm</td>
+            <td>Langkawi to Penang</td>
+            <td>Penang to Langkawi</td>
+          </tr>
+          <tr>
+            <td>2pm</td>
+            <td>Penang to Langkawi</td>
+            <td>Langkawi to Penang</td>
+          </tr>
+          <tr>
+            <td>3pm</td>
+            <td>Langkawi to Penang</td>
+            <td>Penang to Langkawi</td>
+          </tr>
+          <tr>
+            <td>4pm</td>
+            <td>Penang to Langkawi</td>
+            <td>Langkawi to Penang</td>
+          </tr>
+          <tr>
+            <td>5pm</td>
+            <td>Langkawi to Penang</td>
+            <td>Penang to Langkawi</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Besides that, the system only allows the staffs to sell ferry tickets that have date within 7 days from today. The system will automatically record the purchase data of each tickets and store them in a file according to the date. For example, the data of the ferry tickets of 2018-12-31 will be stored in a file named <code>data-2018-12-31.json</code>.</p>    
+
+    </article>
+
+    <article>
+      <h1>System Features</h1>
+
+      <p>This section is about features added to the system that are not specified in the instruction.</p>
+
+      <p>Customer can choose seats manually, or can let computer auto-assign seats. When customers select their seats manually, the seating chart will be shown and passengers are able to choose ferry and seats (able to purchase multiple tickets); if passengers select auto-assign, then customers need to choose number of tickets to buy. After selecting tickets, they need to enter the name of passenger for every ticket.</p>
+
+      <p>This system can sell tickets for one week time.</p>
+
+      <p>This system can view passenger info, given seat number or customer name. Bought ticket can be reprinted.</p>
+
+      <p>Data will be stored, that means data will be retained after system restart.</p>
+
+      <p>There is a limit of trial for invalid input. It will return to main menu if that limit is reached.</p>
+
+      <p>User is able to go back to previous step, and able to return to main menu, at any step.</p>
+
+      <p>List of steps from main menu step to current step will be shown at each page.</p>
+
+    </article>
+
+    <article>
+      <h1>Data Design</h1>
+
+      <p>This section is about the format of data. This is the format of <code>data</code> variable in the code, and the format of content saved in the file.</p>
+
+      <p>Each file stores data for a day. E.g. <code>data_2018-12-01.json</code>.</p>
+
+      <p>Each day has 8 times, with the following indexes:</p>
+
+      <ul>
+        <li>0: 10am</li>
+        <li>1: 11am</li>
+        <li>2: 12pm</li>
+        <li>3: 1pm</li>
+        <li>4: 2pm</li>
+        <li>5: 3pm</li>
+        <li>6: 4pm</li>
+        <li>7: 5pm</li>
+      </ul>
+
+      <p>Each time has 8 ferries, with the following indexes:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">Index</th>
+            <th colspan="2">Ferry ID</th>
+            <th rowspan="2">Route</th>
+          </tr>
+          <tr>
+            <th>If time index is even</th>
+            <th>If time index is odd</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>001</td><td>005</td><td rowspan="4">Penang<br>to<br>Langkawi</td></tr>
+          <tr><td>1</td><td>002</td><td>006</td></tr>
+          <tr><td>2</td><td>003</td><td>007</td></tr>
+          <tr><td>3</td><td>004</td><td>008</td></tr>
+          <tr><td>4</td><td>005</td><td>001</td><td rowspan="4">Langkawi<br>to<br>Penang</td></tr>
+          <tr><td>5</td><td>006</td><td>002</td></tr>
+          <tr><td>6</td><td>007</td><td>003</td></tr>
+          <tr><td>7</td><td>008</td><td>004</td></tr>
+        </tbody>
+      </table>
+
+      <p>Each ferry has 50 seats, indexed from 0 to 49.</p>
+
+      <p>Each seat can either be null or object containing:</p>
+
+      <ul>
+        <li>Name (string)</li>
+        <li>Purchased date and time (timestamp, integer)</li>
+      </ul>
+
+    </article>
+
+    <article class="flow-design">
+      <h1>Flow Design</h1>
+
+      <p>This section is about flow of using the system. A simplified format of flowchart is used here, because the original flowchart format is too detailed and too long. The flowchart and pseudocode should be used to show an overall view of the system, or a rough idea about certain part of the system. There is no point for translating the entire python source code into flowchart or pseudocode. That level of verbosity will not help anyone to get a big picture of the system. And if anyone want to look into that level of details, source code will serve the purpose better.</p>
+
+      <h2>Main</h2>
+
+      <figure>
+        <img src="flow_main.dot.svg">
+        <figcaption>Figure 1: Main Flow</figcaption>
+      </figure>
+
+      <h2>Purchase Ticket</h2>
+
+      <figure>
+        <img src="flow_purchase_ticket.dot.svg">
+        <figcaption>Figure 2: Purchase Ticket</figcaption>
+      </figure>
+
+      <h2>View Seating Arrangement</h2>
+
+      <figure>
+        <img src="flow_view_seating_arrangement.dot.svg">
+        <figcaption>Figure 3: View Seating Arrangement</figcaption>
+      </figure>
+
+      <h2>Search Passenger Info</h2>
+
+      <figure>
+        <img src="flow_search_passenger.dot.svg">
+        <figcaption>Figure 4: Search Passenger</figcaption>
+      </figure>
+
+    </article>
+
+    <article>
+      <h1>Architectural Design</h1>
+
+      <p>This section is about the system architecture.</p>
+
+      <p>Based on the flow design, it makes sense to write each step as a function. The question is, how to combine all these steps to form our system. Here is trivial architecture design:</p>
+
+      <pre><code>PROGRAM
+    print_main_menu()
+
+    LOOP
+        get_main_menu_selection_from_user()
+        
+        IF user_want_to_purchase_ticket THEN
+            get_route_from_user()
+            get_date_from_user()
+            get_time_from_user()
+            # ...
+        ELSE IF user_want_to_view_seating_arrangement THEN
+            # ...
+        ELSE IF user_want_to_search_passenger_info THEN
+            # ...
+        ELSE IF user_want_to_quit THEN
+            BREAK LOOP
+        ELSE
+            # User give an invalid input
+            print_error_message()
+        ENDIF
+    ENDLOOP
+
+    print_thank_you_message()
+ENDPROGRAM</code></pre>
+
+      <p>Let us focus on the first 3 steps purchasing ticket:</p>
+
+      <pre><code>get_route_from_user()
+get_date_from_user()
+get_time_from_user()
+# ...</code></pre>
+
+      <p>This method is simple, but it does not support going back to previous step. To support it, loops need to be added:</p>
+
+<pre><code>LOOP
+    get_route_from_user()
+    IF user_want_to_back_to_previous_step THEN
+        BREAK LOOP
+    ENDIF
+
+    LOOP
+        get_date_from_user()
+        IF user_want_to_back_to_previous_step THEN
+            BREAK LOOP
+        ENDIF
+
+        LOOP
+            get_time_from_user()
+            IF user_want_to_back_to_previous_step THEN
+                BREAK LOOP
+            ENDIF
+
+            # ...
+        ENDLOOP
+    ENDLOOP
+ENDLOOP</code></pre>
+
+      <p>And to support option to return to main menu on each step, multiple breaks are needed:</p>
+
+      <pre><code>break_until_the_end = FALSE
+
+LOOP
+    get_route_from_user()
+    IF user_want_to_back_to_previous_step THEN
+        BREAK LOOP
+    ENDIF
+    IF user_want_to_return_to_main_menu THEN
+        break_until_the_end = TRUE
+        BREAK LOOP
+    ENDIF
+
+    LOOP
+        get_date_from_user()
+        IF user_want_to_back_to_previous_step THEN
+            BREAK LOOP
+        ENDIF
+        IF user_want_to_return_to_main_menu THEN
+            break_until_the_end = TRUE
+            BREAK LOOP
+        ENDIF
+
+        LOOP
+            get_time_from_user()
+            IF user_want_to_back_to_previous_step THEN
+                BREAK LOOP
+            ENDIF
+            IF user_want_to_return_to_main_menu THEN
+                break_until_the_end = TRUE
+                BREAK LOOP
+            ENDIF
+
+            # ...
+
+            IF break_until_the_end THEN
+                BREAK LOOP
+            ENDIF
+        ENDLOOP
+
+        IF break_until_the_end THEN
+            BREAK LOOP
+        ENDIF
+    ENDLOOP
+
+    IF break_until_the_end THEN
+        BREAK LOOP
+    ENDIF
+ENDLOOP</code></pre>
+
+      <p>This is cumbersome. First, there are too many levels of nesting, which is hard to read. Second, the logic for checking intention of user is repeating, which violate the DRY (Don't Repeat Yourself) principle. Is there a better way? Is there a way to factor out those repeating lines?</p>
+
+      <p>Yes, there is.</p>
+
+      <p>A pattern can be observed from the code above:</p>
+
+      <pre><code>do_a_step()
+IF user_want_to_back_to_previous_step THEN
+    go_to_previous_step()
+ELSE IF user_want_to_return_to_main_menu THEN
+    go_to_first_step() # The main menu step
+ELSE
+    go_to_next_step()
+ENDIF</code></pre>
+
+      <p>To implement that pattern, a list of steps can be created, and an index can be used to keep track of current step. After current step is done, index can be modified based on result of current step, and the corresponding step will be executed:</p>
+
+      <pre><code>steps = list(
+    main_menu,
+    get_route_from_user,
+    get_date_from_user,
+    get_time_from_user,
+    ...
+)
+
+i = 0
+LOOP WHILE i &gt;= 0
+    current_step = steps[i]
+    current_step()
+
+    IF user_want_to_back_to_previous_step THEN
+        i = i - 1
+    ELSE IF user_want_to_return_to_main_menu THEN
+        i = 0
+    ELSE
+        i = i + 1
+    ENDIF
+ENDLOOP</code></pre>
+
+      <p>With this architecture, operation common for all steps can be added easily, such as printing a step list from main menu to current step. To make it more flexible, the <code>steps</code> list can be passed into each step, so that the list can be modified inside a step. To enable communication between steps, a context variable can be passed into each step.</p>
+
+      <pre><code>PROGRAM
+    steps = list(main_menu)
+    context = dictionary()
+
+    i = 0
+    LOOP WHILE i &gt;= 0
+        current_step = steps[i]
+        current_step(steps, context)
+
+        IF user_want_to_back_to_previous_step THEN
+            i = i - 1
+        ELSE IF user_want_to_return_to_main_menu THEN
+            i = 0
+        ELSE
+            i = i + 1
+        ENDIF
+    ENDLOOP
+ENDPROGRAM</code></pre>
+    </article>
+
+    <article class="sample-output">
+      <h1>Sample Output</h1>
+
+      <h2>Starting Page</h2>
+
+      <table>
+        <tr>
+          <td><img class="screenshot" src="screenshot26.png"></td>
+          <td><p>When the system starts, the starting page will show up.</p></td>
+        </tr>
+      </table>
+      
+      <h2>Main Menu</h2>
+
+      <table>
+        <tr>
+          <td><img class="screenshot" src="screenshot27.png"></td>
+          <td><p>After the starting page shows up, the main menu page will be prompted. User is required to input the desired option.</p></td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot02.png"></td>
+          <td>
+            <h6>Error</h6>
+            <p>If the user key in the wrong input, 3 trials are given to the user to key in correctly. If all 3 trials are exceeded, an error message is prompted, then the system will quit itself.</p>
+          </td>
+        </tr>
+      </table>
+
+      <h2>Purchase Ticket</h2>
+
+      <table>
+        <tr>
+          <td><img class="screenshot" src="screenshot03.png"></td>
+          <td>
+            <h6>Route Selection Page</h6>
+            <p>After the user input P in the main menu, the route selection page will be prompted. User is required to choose which route to travel.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot04.png"></td>
+          <td>
+            <h6>Date Selection Page</h6>
+            <p>After the user choose the route, the date selection page will be prompted. User is required to choose which date to travel.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot05.png"></td>
+          <td>
+            <h6>Time Selection Page</h6>
+            <p>After the user choose the date, the time selection page will be prompted. User is required to choose which time to travel. In this page, user can quickly check the seats availability for each trip time.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot06.png"></td>
+          <td>
+            <h6>Method Selection Page</h6>
+            <p>After the user choose the time, the method selection page will be prompted. User is required to choose which method to use to select the seats.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot07.png"></td>
+          <td>
+            <h6>Manual Seat Selection Page</h6>
+            <p>If the user chooses to select seats manually, this manual seat selection page will be prompted. User is required to key in desired seats that are available.</p>
+            <ul>
+              <li>A1 to B5 is business class.</li>
+              <li>C1 to J5 is economy class.</li>
+            </ul>
+            <p>If that particular seat is not available, seat number will be replaced with <code>__</code>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot08.png"></td>
+          <td>
+            <p>A proper error message will be shown according to 5 scenarios:</p>
+            <ol>
+              <li>If the user only key in ferry ID</li>
+              <li>If the user only key in seat number</li>
+              <li>If the user key in the occupied seat number</li>
+              <li>If the user key in ferry ID that is not available</li>
+              <li>If the user key in invalid input</li>
+            </ol>
+            <p>The system will keep asking user to key in seat number until the inputs are correct.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot09.png"></td>
+          <td>
+            <h6>Auto Seat Selection Page</h6>
+            <p>If the user chooses to select seats automatically, this auto seat selection page will be prompted. User is required to key in desired number of business class seats and economy class seats.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot10.png"></td>
+          <td>
+            <h6>Error</h6>
+            <p>If the user key in an invalid input, an error message is prompted. The system will keep asking user to key in until the inputs are correct.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot11.png"></td>
+          <td>
+            <h6>Passenger Name Page</h6>
+            <p>After the user finish choosing the seats, the passenger name page will be prompted. User is required to key in the passenger’s name for each seats selected from the seat selection page.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot12.png"></td>
+          <td>
+            <h6>Confirmation Page</h6>
+            <p>After the user finishes entering the passengers’ names, the confirmation page will be prompted. User is required to check whether the details are correct.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot13.png"></td>
+          <td>
+            <h6>Printing Page</h6>
+            <p>After user had confirmed all the details are corrected, this printing page will be prompted, and the customer’s ticket will be printed out. The system will automatically return to main menu.</p>
+          </td>
+        </tr>
+      </table>
+
+      <h2>View Seating Arrangement</h2>
+
+      <table>
+        <tr>
+          <td><img class="screenshot" src="screenshot14.png"></td>
+          <td>
+            <h6>Date Selection Page</h6>
+            <p>After the user input V in the main menu, the date selection page will be prompted. User is required to choose which date to view the seating arrangement.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot15.png"></td>
+          <td>
+            <h6>Time Selection Page</h6>
+            <p>After the user input the date, the time selection page will be prompted. User is required to choose which trip time to view the seating arrangement.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot16.png"></td>
+          <td>
+            <h6>Ferry ID Selection Page</h6>
+            <p>After the user input the trip time, the ferry ID selection page will be prompted. User is required to choose which ferry ID’s seating arrangement to view.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot17.png"></td>
+          <td>
+            <h6>Seat Arrangement Page</h6>
+            <p>After the user select the ferry ID, the seating arrangement of that particular ferry ID will be shown. User can either key in the seat number to check passenger’s details or go back to previous back or return to main menu.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot18.png"></td>
+          <td>
+            <p>If the user input an empty seat, a proper message such as “Empty seat” will be shown.</p>
+            <p>If the user input an occupied seat, the purchase details of that passenger will be shown.</p>
+            <p>User can return to main menu by keying in <code>return</code></p>
+          </td>
+        </tr>
+      </table>
+
+      <h2>Search Passenger</h2>
+
+      <table>
+        <tr>
+          <td><img class="screenshot" src="screenshot19.png"></td>
+          <td>
+            <h6>Date Selection Page</h6>
+            <p>After the user input S in the main menu, the date selection page will be prompted. User is required to choose which date to search.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot20.png"></td>
+          <td>
+            <h6>Name Search Page</h6>
+            <p>After the user choose a date, the name search page will be prompted. User is required to enter the name for searching.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot21.png"></td>
+          <td>
+            <h6>Select Result Page</h6>
+            <p>After the user enter the name, if the name can be found in the passenger list, the details of that particular name will be shown. User can choose to reprint the tickets or back to previous page or return to main menu. </p>
+          </td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot22.png"></td>
+          <td><p>If the name searched is not in the passenger list, nothing will be shown.</p></td>
+        </tr>
+        <tr>
+          <td><img class="screenshot" src="screenshot23.png"></td>
+          <td>
+            <h6>Printing Page</h6>
+            <p>If the user chooses to reprint the ticket, the printing page will be prompted, the ticket will be printed out. The system will automatically return to main menu.</p>
+            </td>
+        </tr>
+
+      </table>
+
+      <h2>Quit Page</h2>
+
+      <table>
+        <tr>
+          <td><img class="screenshot" src="screenshot24.png"></td>
+          <td><p>When the user input Q in the main menu or the system want to quit itself due to exceeding 3 trail limits, the quit page will be prompted indicating that the system has been shut down.</p></td>
+        </tr>
+      </table>
+
+      <h2>Error</h2>
+
+      <table>
+        <tr>
+          <td><img class="screenshot" src="screenshot25.png"></td>
+          <td>
+            <p>3 trials will be given if the user key in the wrong input in the following page:</p>
+            <ol>
+              <li>Route Selection Page</li>
+              <li>Date Selection Page</li>
+              <li>Time Selection Page</li>
+              <li>Method Selection Page</li>
+              <li>FerryID selection page</li>
+              <li>Select Result Page</li>
+            </ol>
+            <p>If the user still key in the wrong input after 3 times, the system will automatically return to main menu.</p>
+          </td>
+        </tr>
+      </table>
+    </article>
+
+    <article>
+      <h1>Additional Python Features Used</h1>
+      
+      <h2>Language Features</h2>
+
+      <h3>List comprehension</h3>
+
+      <p>List comprehension is a concise way to create a list. The basic syntax is</p>
+
+      <pre><code>x = [expression for item in list if condition]</code></pre>
+
+      <p>It is equivalent to</p>
+
+      <pre><code>x = []
+for item in list:
+    if condition:
+        x.append(expression)</code></pre>
+
+      <p>For example, to create a list of 10 squared numbers start from zero:</p>
+
+      <pre><code>squared_numbers = [x**2 for i in range(10)]</code></pre>
+
+      <h3>Module</h3>
+
+      <p>In Python, function definitions can be put inside a file. That file is called a module. Module can be imported to be used in a script. For example, a module named <code>my_module.py</code> has the following content</p>
+
+      <pre><code>def add(x, y):
+    return x + y</code></pre>
+
+      <p><code>my_module.py</code> can be imported to be used.</p>
+
+      <pre><code>import my_module
+      
+print(my_module.add(5, 7))</code></pre>
+
+      <p>Module helps programmers to organize their code for higher reusability.</p>
+
+      <h3>Dictionary</h3>
+
+      <p>Dictionary is a built-in data type of Python like list. It is called associative arrays in other languages. To access an element of a list, we need an index. To access an element of a dict, we need a key. Dictionary key can be any immutable type.</p>
+
+      <p>Dictionary can be created like this:</p>
+
+      <pre><code>x = {'jack': 4098, 'sape': 4139, 'susan': 4359}</code></pre>
+
+      <p>And can be accessed like this:</p>
+
+      <pre><code>print(x['jack'])</code></pre>
+
+      <h3>String formatting</h3>
+
+      <p>There is a <code>str.format()</code> method for string formatting.</p>
+
+      <pre><code>'Hello, {}'.format('Lisa') # evaluate to 'Hello, Lisa'</code></pre>
+
+      <p>It has several formatting syntax, such as specify width and alignment.</p>
+
+      <pre><code>'| {: &lt;5} | {: ^5} | {: &gt;5} |'.format('a', 'b', 'c')
+# evaluate to '| a     |   b   |     c |'</code></pre>
+
+      <h2>Built-in Functions</h2>
+
+      <p><code>callable(x)</code> test whether <code>x</code> is a function.</p>
+
+      <p><code>isinstance(x, type)</code> test whether <code>x</code> is type of <code>type</code>.</p>
+
+      <p><code>enumerate(l)</code> return a list of tuple of <code>i</code> and <code>x</code>, where <code>i</code> is index, and <code>x</code> is <code>l[i]</code>. Normally this function is used in <code>for</code> loop.</p>
+
+      <p><code>sum(l)</code> return summation of all elements of list <code>l</code>.</p>
+
+      <h2>Libraries</h2>
+
+      <p><code>time</code> module provides various time-related functions. <code>time.time()</code> will return number of seconds since epoch, also known as timestamp. <code>time.localtime(timestamp)</code> will convert a timestamp to time structure. <code>time.strftime(format, time_structure)</code> will convert a time structure to a string according to format given.</p>
+
+      <p><code>os</code> module provides a portable way of using operating system dependent functionality. <code>os.mkdir(directory, mode)</code> can be used to create a folder.</p>
+
+      <p><code>os.path</code> module provides some useful function on pathnames. <code>os.path.isdir(x)</code> check whether x is a directory. <code>os.path.join(a, b, ...)</code> will join one or more path component using operating system specific path separator.</p>
+
+      <p><code>datetime</code> module supply classes for manipulating dates and times. <code>datetime.date.today()</code> will return today's date.</p>
+
+      <p><code>json</code> module provide functions to parse variable from (<code>json.load(f)</code>) and to (<code>json.dump(x, f)</code>) string JSON data format.</p>
+    </article>
+
+    <article>
+      <h1>References</h1>
+
+      <p class="ref-list-item">Gillespie, P. (2018) <em>Text to ASCII art generator (TAAG).</em> [Online]. Available from: http://patorjk.com/software/taag/ [Accessed: 28 December 2018]</p>
+      <p class="ref-list-item">Python (2018) <em>The Python standard library.</em> [Online]. Available from: https://docs.python.org/3/library/index.html [Accessed: 30 December 2018]</p>
+      <p class="ref-list-item">Python (2018) <em>The Python tutorial.</em> [Online]. Available from: https://docs.python.org/3/tutorial/index.html [Accessed: 30 December 2018]</p>
+    </article>
+
+  </body>
+</html>

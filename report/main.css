@@ -1,0 +1,61 @@
+article {
+  page-break-before: always;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  border: 1px solid #888;
+  padding: 2px 4px;
+}
+p, table, ul, ol, figcaption {
+  font-family: "Times New Roman";
+  line-height: 1.5;
+}
+p {
+  text-align: justify;
+}
+table ul {
+  padding-left: 15px;
+}
+.common-cover,
+.common-cover p {
+  text-align: center;
+}
+.common-cover .logo {
+  width: 200px;
+}
+.common-cover ol {
+  text-align: left;
+}
+.marking-grid .header-row {
+  background-color: #ddd;
+}
+.marking-grid table {
+  page-break-inside: avoid;
+  line-height: normal;
+}
+.custom-cover .logo {
+  font-size: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.flow-design img {
+  max-width: 100%;
+}
+.sample-output .screenshot {
+  max-width: 350px;
+}
+.sample-output h6 {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.sample-output table p {
+  text-align: left;
+}
+@page {
+  @bottom-center {
+    content: counter(page);
+  }
+}

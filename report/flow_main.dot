@@ -1,0 +1,34 @@
+digraph G {
+    node [shape="ellipse"];
+    start;
+    stop;
+
+    node [shape="point"];
+    _a; _b; _c; _d;     _f; _g; _h; _i;     _k;
+
+    node [shape="box"];
+    a [label="Print main menu"];
+    b [label="Get main menu selection from user"];
+    c [label="Purchase ticket"];
+    d [label="View seating arrangement"];
+    e [label="Search passenger info"];
+    f [label="Print error message,\nbecause user gives an invalid input"];
+    g [label="Print thank you message"];
+
+    edge [weight=100];
+    start -> a -> b -> _a -> _b -> _c -> _d -> f;
+    _f -> _g -> _h -> _i -> _k [dir="back"];
+
+    edge [weight=1];
+    {rank="same"; b -> _f [dir="back"];}
+    {rank="same"; _a; c -> _g;}
+    {rank="same"; _b; d -> _h;}
+    {rank="same"; _c; e -> _i;}
+    {rank="same"; _d; g -> stop;}
+    {rank="same"; f -> _k;}
+
+    _a -> c [label="If user want to\npurchase ticket"];
+    _b -> d [label="If user want to\nview seating arrangement"];
+    _c -> e [label="If user want to\nsearch passenger info"];
+    _d -> g [label="If user want to quit"];
+}
